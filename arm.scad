@@ -14,8 +14,9 @@ module arm_shaft_profile(diameter, length) {
 
 module arm_shaft(diameter, length, thickness) {
     difference() {
-	arm_shaft_profile(diameter, length);
-	arm_shaft_profile(diameter-thickness, length+0.1);
+        arm_shaft_profile(diameter, length);
+        translate([0,-0.5,0]) // extend subtractor beyond subtractee's bounds
+        arm_shaft_profile(diameter-thickness, length+1);
     }
 }
 
