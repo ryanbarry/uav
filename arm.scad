@@ -17,14 +17,6 @@ module arm_internal_rib(diameter, length, thickness) {
     translate([-thickness/2,0,-diameter/2]) cube([thickness, length, diameter]);
 }
 
-module motor_cup(idiameter, height, thickness) {
-    translate ([0,0,-height/2])
-    difference() {
-	cylinder(h=height, r=(idiameter+thickness)/2, $fn=100);
-	translate([0,0,thickness]) cylinder(h=height, r=idiameter/2, $fn=100);
-    }
-}
-
 module arm_shaft(odiameter, length, thickness) {
     difference() {
         arm_shaft_profile(odiameter, length);
@@ -34,5 +26,21 @@ module arm_shaft(odiameter, length, thickness) {
     arm_internal_rib(odiameter, length, 2);
 }
 
-arm_shaft(arm_odiam, arm_length-motor_cup_idiam-arm_thickness, arm_thickness);
-translate([0,150-(motor_cup_idiam+arm_thickness)/2,0]) motor_cup(motor_cup_idiam, arm_odiam, arm_thickness);
+module motor_cup(idiameter, height, thickness) {
+    translate ([0,0,-height/2])
+    difference() {
+	union() {
+	    cylinder(h=height, r=(idiameter+thickness)/2, $fn=100);
+	    translate([0, -(idiameter+thickness)/2, height/2]) arm_shaft(height, thickness*2, thickness);
+	}
+	translate([0,0,thickness]) cylinder(h=height, r=idiameter/2, $fn=100);
+    }
+    
+}
+
+module arm(height, length, motor_cup_idiam, thickness) {
+    arm_shaft(height, length-motor_cup_idiam-thickness, thickness);
+    translate([0,150-(motor_cup_idiam+thickness)/2,0]) motor_cup(motor_cup_idiam, height, thickness);
+}
+
+arm(arm_odiam, arm_length, motor_cup_idiam, arm_thickness);
