@@ -1,7 +1,7 @@
 arm_odiam = 25; //mm
-arm_length = 150; //mm
+arm_length = 200; //mm
 arm_thickness = 4; //mm
-motor_cup_idiam = 30; //mm
+motor_cup_idiam = 30.1; //mm
 
 module arm_shaft_profile(diameter, length) {
     intersection() {
