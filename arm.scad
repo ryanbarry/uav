@@ -29,13 +29,15 @@ module arm_shaft(odiameter, length, thickness) {
 module motor_cup(idiameter, height, thickness) {
     translate ([0,0,-height/2])
     difference() {
-	union() {
-	    cylinder(h=height, r=(idiameter+thickness)/2, $fn=100);
-	    translate([0, -(idiameter+thickness)/2, height/2]) arm_shaft(height, thickness*2, thickness);
-	}
-	translate([0,0,thickness]) cylinder(h=height, r=idiameter/2, $fn=100);
+        difference() {
+            union() {
+                cylinder(h=height, r=(idiameter+thickness)/2, $fn=100);
+                translate([0, -(idiameter+thickness)/2, height/2]) arm_shaft(height, thickness*2, thickness);
+            }
+            translate([0,0,thickness]) cylinder(h=height, r=idiameter/2, $fn=100);
+        }
+        translate([0, -(idiameter+thickness)/2, height/2]) arm_shaft_profile(height-thickness, thickness*2);
     }
-    
 }
 
 module arm(height, length, motor_cup_idiam, thickness) {
