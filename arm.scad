@@ -31,7 +31,7 @@ module motor_cup(idiameter, height, thickness) {
     difference() {
         difference() {
             union() {
-                cylinder(h=height, r=(idiameter+thickness)/2, $fn=100);
+                cylinder(h=height/sqrt(2), r=(idiameter+thickness)/2, $fn=100);
                 translate([0, -(idiameter+thickness)/2, height/2]) arm_shaft(height, thickness*2, thickness);
             }
             translate([0,0,thickness]) cylinder(h=height, r=idiameter/2, $fn=100);
