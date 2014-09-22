@@ -42,7 +42,7 @@ module motor_cup(idiameter, height, thickness) {
 
 module arm(height, length, motor_cup_idiam, thickness) {
     arm_shaft(height, length-motor_cup_idiam-thickness, thickness);
-    translate([0,150-(motor_cup_idiam+thickness)/2,0]) motor_cup(motor_cup_idiam, height, thickness);
+    translate([0,length-(motor_cup_idiam+thickness)/2,0]) motor_cup(motor_cup_idiam, height, thickness);
 }
 
 arm(arm_odiam, arm_length, motor_cup_idiam, arm_thickness);
